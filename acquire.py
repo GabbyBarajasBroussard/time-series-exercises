@@ -6,7 +6,7 @@
 
 import pandas as pd
 import requests
-
+import os
 
 # In[4]:
 
@@ -16,7 +16,7 @@ def get_items_data():
         in the form of a CSV file.'''
     filename = "items.csv"
     if os.path.isfile(filename):
-        return pd.read_csv(filename)
+        return pd.read_csv(filename, index_col=0)
     else:
     #empty list for holding items
         items_list = []
@@ -43,7 +43,7 @@ def get_stores_data():
         in the form of a CSV file.'''
     filename = "stores.csv"
     if os.path.isfile(filename):
-        return pd.read_csv(filename)
+        return pd.read_csv(filename, index_col=0)
     else:
     #empty list for holding items
         items_list = []
@@ -70,7 +70,7 @@ def get_sales_data():
         in the form of a CSV file.'''
     filename = "sales.csv"
     if os.path.isfile(filename):
-        return pd.read_csv(filename)
+        return pd.read_csv(filename, index_col=0)
     else:
     #empty list for holding items
         items_list = []
@@ -93,9 +93,9 @@ def get_sales_data():
 
 
 def make_one_df():
-    items = pd.read_csv('items.csv')
-    stores = pd.read_csv('stores.csv')
-    sales= pd.read_csv('sales.csv')
+    items = pd.read_csv('items.csv', index_col=0)
+    stores = pd.read_csv('stores.csv', index_col=0)
+    sales= pd.read_csv('sales.csv', index_col=0)
     # Merge sales with stores
     complete_df = sales.merge(stores, left_on='store', right_on='store_id')
     # Merge sales and stores on items
@@ -109,7 +109,7 @@ def make_one_df():
 
 
 def read_url_csv(url):
-    df = pd.read_csv(url)
+    df = pd.read_csv(url, index_col=0)
     df = pd.DataFrame(df)
     return df
 
